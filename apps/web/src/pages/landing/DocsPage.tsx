@@ -15,8 +15,8 @@ export default function DocsPage() {
           { title: 'Security', desc: 'Encryption, 2FA, audit logs' },
         ].map((d) => (
           <div key={d.title} className="glass-card hover:border-brand-500/30 transition">
-            <h3 className="font-semibold">{d.title}</h3>
-            <p className="text-sm text-slate-500 mt-1">{d.desc}</p>
+            <h3 className={'font-semibold'}>{d.title}</h3>
+            <p className={'text-sm text-slate-500 mt-1'}>{d.desc}</p>
           </div>
         ))}
       </div>
