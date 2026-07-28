@@ -67,7 +67,17 @@ export default function AppLayout() {
             </NavLink>
           ))}
           {(user?.role === 'admin' || user?.role === 'owner') && (
-            <NavLink to="/app/admin" className={({ isActive }) => cn('flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium transition', isActive ? 'bg-brand-50 dark:bg-brand-950/40 text-brand-700 dark:text-brand-300' : 'text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-surface-800')}>
+            <NavLink
+              to="/app/admin"
+              className={({ isActive }) =>
+                cn(
+                  'flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium transition',
+                  isActive
+                    ? 'bg-brand-50 dark:bg-brand-950/40 text-brand-700 dark:text-brand-300'
+                    : 'text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-surface-800'
+                )
+              }
+            >
               <Shield className="h-5 w-5" />
               Admin
             </NavLink>
@@ -78,7 +88,13 @@ export default function AppLayout() {
             {theme === 'dark' ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
             {theme === 'dark' ? 'Light mode' : 'Dark mode'}
           </button>
-          <button onClick={() => { logout(); navigate('/login'); }} className="btn-ghost w-full justify-start text-red-600 dark:text-red-400">
+          <button
+            onClick={() => {
+              logout();
+              navigate('/login');
+            }}
+            className="btn-ghost w-full justify-start text-red-600 dark:text-red-400"
+          >
             <LogOut className="h-5 w-5" />
             Log out
           </button>
@@ -96,8 +112,12 @@ export default function AppLayout() {
           </button>
           <div className="flex items-center gap-3">
             <div className="hidden sm:block text-right">
-              <p className="text-sm font-medium">{user?.name}</p>
-              <p className="text-xs text-slate-500 capitalize">{user?.plan} plan</p>
+              <p className="text-sm font-medium">
+                {user?.name}
+              </p>
+              <p className="text-xs text-slate-500 capitalize">
+                {user?.plan} plan
+              </p>
             </div>
             <div className="flex h-9 w-9 items-center justify-center rounded-full bg-brand-600 text-white text-sm font-semibold">
               {user?.name?.charAt(0)?.toUpperCase() || 'U'}
