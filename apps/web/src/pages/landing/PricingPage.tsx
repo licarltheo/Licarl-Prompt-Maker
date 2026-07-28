@@ -45,14 +45,18 @@ export default function PricingPage() {
             {p.popular && (
               <span className="text-xs font-semibold text-brand-600 mb-2">Most popular</span>
             )}
-            <h3 className="text-xl font-bold">{p.name}</h3>
+            <h3 className="text-xl font-bold">
+              {p.name}
+            </h3>
             <p className="mt-2 text-3xl font-bold">
               {p.price}
               <span className="text-sm font-normal text-slate-500">
                 {p.price !== 'Custom' ? '/mo' : ''}
               </span>
             </p>
-            <p className="mt-2 text-sm text-slate-500 flex-1">{p.desc}</p>
+            <p className="mt-2 text-sm text-slate-500 flex-1">
+              {p.desc}
+            </p>
             <ul className="mt-6 space-y-2">
               {p.features.map((f) => (
                 <li key={f} className="flex items-center gap-2 text-sm">
