@@ -25,21 +25,30 @@ const recent = [
 
 export default function DashboardPage() {
   const user = useAuthStore((s) => s.user);
+  const firstName = user?.name?.split(' ')[0] || 'there';
 
   return (
     <div className="space-y-8 animate-fade-in">
       <div>
-        <h1 className="text-2xl font-bold">Welcome back, {user?.name?.split(' ')[0] || 'there'}</h1>
-        <p className="text-slate-500 mt-1">Here is what is happening with your prompts.</p>
+        <h1 className="text-2xl font-bold">
+          Welcome back, {firstName}
+        </h1>
+        <p className="text-slate-500 mt-1">
+          Here is what is happening with your prompts.
+        </p>
       </div>
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
         {stats.map((s) => (
           <div key={s.label} className="glass-card">
             <div className="flex items-center justify-between mb-3">
-              <span className="text-sm text-slate-500">{s.label}</span>
+              <span className="text-sm text-slate-500">
+                {s.label}
+              </span>
               <s.icon className="h-5 w-5 text-brand-500" />
             </div>
-            <p className="text-2xl font-bold">{s.value}</p>
+            <p className="text-2xl font-bold">
+              {s.value}
+            </p>
             <p className="text-xs text-slate-500 mt-1 flex items-center gap-1">
               <TrendingUp className="h-3 w-3" /> {s.change}
             </p>
@@ -50,11 +59,17 @@ export default function DashboardPage() {
         <h2 className="text-lg font-semibold mb-4">Quick actions</h2>
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
           {quickActions.map((a) => (
-            <Link key={a.to} to={a.to} className="glass-card flex items-center gap-3 hover:border-brand-500/40 transition py-4">
+            <Link
+              key={a.to}
+              to={a.to}
+              className="glass-card flex items-center gap-3 hover:border-brand-500/40 transition py-4"
+            >
               <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-brand-100 dark:bg-brand-950 text-brand-600">
                 <a.icon className="h-5 w-5" />
               </div>
-              <span className="font-medium text-sm">{a.label}</span>
+              <span className="font-medium text-sm">
+                {a.label}
+              </span>
             </Link>
           ))}
         </div>
@@ -64,12 +79,21 @@ export default function DashboardPage() {
           <h2 className="text-lg font-semibold mb-4">Recent activity</h2>
           <ul className="space-y-3">
             {recent.map((r, i) => (
-              <li key={i} className="flex items-center justify-between py-2 border-b border-slate-100 dark:border-slate-800 last:border-0">
+              <li
+                key={i}
+                className="flex items-center justify-between py-2 border-b border-slate-100 dark:border-slate-800 last:border-0"
+              >
                 <div>
-                  <p className="text-sm font-medium">{r.title}</p>
-                  <p className="text-xs text-slate-500">{r.type}</p>
+                  <p className="text-sm font-medium">
+                    {r.title}
+                  </p>
+                  <p className="text-xs text-slate-500">
+                    {r.type}
+                  </p>
                 </div>
-                <span className="text-xs text-slate-400">{r.time}</span>
+                <span className="text-xs text-slate-400">
+                  {r.time}
+                </span>
               </li>
             ))}
           </ul>
@@ -86,10 +110,15 @@ export default function DashboardPage() {
               <div key={p.provider}>
                 <div className="flex justify-between text-sm mb-1">
                   <span>{p.provider}</span>
-                  <span className="text-slate-500">{p.tokens}</span>
+                  <span className="text-slate-500">
+                    {p.tokens}
+                  </span>
                 </div>
                 <div className="h-2 rounded-full bg-slate-100 dark:bg-slate-800 overflow-hidden">
-                  <div className="h-full rounded-full bg-brand-500" style={{ width: p.pct + '%' }} />
+                  <div
+                    className="h-full rounded-full bg-brand-500"
+                    style={{ width: p.pct + '%' }}
+                  />
                 </div>
               </div>
             ))}
