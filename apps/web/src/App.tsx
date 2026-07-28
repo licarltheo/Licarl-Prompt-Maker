@@ -1,7 +1,7 @@
+import { type ReactNode, useEffect } from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import { useAuthStore } from './stores/authStore';
 import { useThemeStore } from './stores/themeStore';
-import { useEffect } from 'react';
 
 import AppLayout from './components/layout/AppLayout';
 import AuthLayout from './components/layout/AuthLayout';
@@ -34,7 +34,7 @@ import TeamPage from './pages/team/TeamPage';
 import AdminPage from './pages/admin/AdminPage';
 import ProvidersPage from './pages/settings/ProvidersPage';
 
-function ProtectedRoute({ children }: { children: React.ReactNode }) {
+function ProtectedRoute({ children }: { children: ReactNode }) {
   const { isAuthenticated, isLoading } = useAuthStore();
   if (isLoading) {
     return (
