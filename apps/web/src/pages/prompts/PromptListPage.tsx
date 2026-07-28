@@ -29,23 +29,41 @@ export default function PromptListPage() {
       <div className="flex flex-col sm:flex-row gap-3">
         <div className="relative flex-1">
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-400" />
-          <input className="input pl-10" placeholder="Search prompts..." value={search} onChange={(e) => setSearch(e.target.value)} />
+          <input
+            className="input pl-10"
+            placeholder="Search prompts..."
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+          />
         </div>
-        <button className="btn-secondary"><Folder className="h-4 w-4" /> Folders</button>
-        <button className="btn-secondary"><Tag className="h-4 w-4" /> Tags</button>
+        <button type="button" className="btn-secondary">
+          <Folder className="h-4 w-4" /> Folders
+        </button>
+        <button type="button" className="btn-secondary">
+          <Tag className="h-4 w-4" /> Tags
+        </button>
       </div>
 
       <div className="grid gap-3">
         {filtered.map((p) => (
-          <Link key={p.id} to={`/app/prompts/${p.id}`} className="glass-card flex items-center gap-4 hover:border-brand-500/30 transition py-4">
+          <Link
+            key={p.id}
+            to={`/app/prompts/${p.id}`}
+            className="glass-card flex items-center gap-4 hover:border-brand-500/30 transition py-4"
+          >
             <div className="flex-1 min-w-0">
               <div className="flex items-center gap-2">
-                <h3 className="font-medium truncate">{p.title}</h3>
+                <h3 className={'font-medium truncate'}>{p.title}</h3>
                 {p.favorite && <Star className="h-4 w-4 text-amber-400 fill-amber-400 shrink-0" />}
               </div>
               <div className="flex items-center gap-2 mt-1">
                 {p.tags.map((t) => (
-                  <span key={t} className="text-xs rounded-full bg-slate-100 dark:bg-slate-800 px-2 py-0.5 text-slate-500">{t}</span>
+                  <span
+                    key={t}
+                    className="text-xs rounded-full bg-slate-100 dark:bg-slate-800 px-2 py-0.5 text-slate-500"
+                  >
+                    {t}
+                  </span>
                 ))}
               </div>
             </div>
