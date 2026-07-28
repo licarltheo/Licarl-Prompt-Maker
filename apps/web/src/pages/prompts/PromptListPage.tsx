@@ -67,7 +67,9 @@ export default function PromptListPage() {
                 ))}
               </div>
             </div>
-            <span className="text-xs text-slate-400 shrink-0">{p.updated}</span>
+            <span className="text-xs text-slate-400 shrink-0">
+              {p.updated}
+            </span>
           </Link>
         ))}
       </div>
