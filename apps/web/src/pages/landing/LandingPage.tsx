@@ -48,7 +48,12 @@ export default function LandingPage() {
           <p className="text-center text-sm font-medium text-slate-500 mb-6">Works with every major AI provider</p>
           <div className="flex flex-wrap justify-center gap-3">
             {providers.map((p) => (
-              <span key={p} className="rounded-full border border-slate-200 dark:border-slate-700 bg-white dark:bg-surface-900 px-4 py-1.5 text-sm font-medium text-slate-600 dark:text-slate-300">{p}</span>
+              <span
+                key={p}
+                className="rounded-full border border-slate-200 dark:border-slate-700 bg-white dark:bg-surface-900 px-4 py-1.5 text-sm font-medium text-slate-600 dark:text-slate-300"
+              >
+                {p}
+              </span>
             ))}
           </div>
         </div>
@@ -65,8 +70,12 @@ export default function LandingPage() {
                 <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-brand-100 dark:bg-brand-950 text-brand-600 dark:text-brand-400 mb-4">
                   <f.icon className="h-6 w-6" />
                 </div>
-                <h3 className="text-lg font-semibold mb-2">{f.title}</h3>
-                <p className="text-sm text-slate-600 dark:text-slate-400">{f.desc}</p>
+                <h3 className="text-lg font-semibold mb-2">
+                  {f.title}
+                </h3>
+                <p className="text-sm text-slate-600 dark:text-slate-400">
+                  {f.desc}
+                </p>
               </div>
             ))}
           </div>
