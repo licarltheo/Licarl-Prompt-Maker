@@ -1,0 +1,171 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  USER
+  ADMIN
+  OWNER
+}
+
+enum Plan {
+  FREE
+  PRO
+  TEAM
+  ENTERPRISE
+}
+
+model User {
+  id                String    @id @default(cuid())
+  email             String    @unique
+  name              String
+  passwordHash      String?
+  avatar            String?
+  role              Role      @default(USER)
+  plan              Plan      @default(FREE)
+  emailVerified     Boolean   @default(false)
+  twoFactorEnabled  Boolean   @default(false)
+  twoFactorSecret   String?
+  createdAt         DateTime  @default(now())
+  updatedAt         DateTime  @updatedAt
+
+  prompts           Prompt[]
+  chats             Chat[]
+  agents            Agent[]
+  workflows         Workflow[]
+  apiKeys           ProviderKey[]
+  sessions          Session[]
+  organizations     OrganizationMember[]
+  auditLogs         AuditLog[]
+
+  @@index([email])
+}
+
+model Session {
+  id        String   @id @default(cuid())
+  userId    String
+  token     String   @unique
+  userAgent String?
+  ip        String?
+  expiresAt DateTime
+  createdAt DateTime @default(now())
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@index([token])
+}
+
+model Prompt {
+  id          String   @id @default(cuid())
+  userId      String
+  title       String
+  content     String
+  tags        String[]
+  folderId    String?
+  isFavorite  Boolean  @default(false)
+  isArchived  Boolean  @default(false)
+  version     Int      @default(1)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@index([folderId])
+}
+
+model Chat {
+  id        String   @id @default(cuid())
+  userId    String
+  title     String
+  messages  Json
+  pinned    Boolean  @default(false)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+}
+
+model Agent {
+  id           String   @id @default(cuid())
+  userId       String
+  name         String
+  systemPrompt String
+  temperature  Float    @default(0.7)
+  topP         Float    @default(1)
+  maxTokens    Int      @default(4096)
+  avatar       String?
+  isPublic     Boolean  @default(false)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+}
+
+model Workflow {
+  id        String   @id @default(cuid())
+  userId    String
+  name      String
+  nodes     Json
+  edges     Json
+  schedule  String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+}
+
+model ProviderKey {
+  id            String   @id @default(cuid())
+  userId        String
+  provider      String
+  encryptedKey  String
+  isDefault     Boolean  @default(false)
+  isEnabled     Boolean  @default(true)
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+  user          User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, provider])
+  @@index([userId])
+}
+
+model Organization {
+  id        String   @id @default(cuid())
+  name      String
+  slug      String   @unique
+  createdAt DateTime @default(now())
+  members   OrganizationMember[]
+}
+
+model OrganizationMember {
+  id             String       @id @default(cuid())
+  organizationId String
+  userId         String
+  role           String       @default("member")
+  organization   Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  user           User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([organizationId, userId])
+}
+
+model AuditLog {
+  id        String   @id @default(cuid())
+  userId    String?
+  action    String
+  resource  String?
+  metadata  Json?
+  ip        String?
+  createdAt DateTime @default(now())
+  user      User?    @relation(fields: [userId], references: [id], onDelete: SetNull)
+
+  @@index([userId])
+  @@index([createdAt])
+}
